@@ -38,7 +38,7 @@ if (res.statusCode == 200) {
       return res;
   }
 }
-return 'An internal error occured';
+return 'An internal error occured. Fix the issue!';
     } catch(e) {
       return e.toString();
     }
@@ -70,7 +70,7 @@ if (res.statusCode == 200) {
   });
   return content;
 }
-return 'An internal error occured';
+return 'An internal error occured. Fix the issue!';
     } catch(e) {
       return e.toString();
     }
@@ -103,7 +103,7 @@ if (res.statusCode == 200) {
   });
   return imageUrl;
 }
-return 'An internal error occured';
+return 'An internal error occured. Fix the issue!';
     } catch(e) {
       return e.toString();
     }
