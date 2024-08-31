@@ -31,12 +31,23 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     initSpeechToText();
-    initSpeechToText();
+    initTextToSpeech();
   }
 
+  // Future<void> initSpeechToText() async {
+  //   await speechToText.initialize();
+  //   setState(() {});
+  // }
   Future<void> initSpeechToText() async {
-    await speechToText.initialize();
-    setState(() {});
+    bool available = await speechToText.initialize(
+      onStatus: (status) => print('Status: $status'),
+      onError: (errorNotification) => print('Error: $errorNotification'),
+    );
+    if (!available) {
+      print('Speech recognition is not available on this device');
+    } else {
+      setState(() {});
+    }
   }
 
   Future<void> initTextToSpeech() async {
@@ -44,7 +55,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  // Future<void> startListening() async {
+  //   await speechToText.listen(onResult: onSpeechResult);
+  //   setState(() {});
+  // }
   Future<void> startListening() async {
+    if (!speechToText.isAvailable) {
+      print('Speech recognition not available');
+      return;
+    }
     await speechToText.listen(onResult: onSpeechResult);
     setState(() {});
   }
@@ -58,9 +77,15 @@ class _HomePageState extends State<HomePage> {
     await flutterTts.speak(content);
   }
 
+  // void onSpeechResult(SpeechRecognitionResult result) {
+  //   setState(() {
+  //     lastWords = result.recognizedWords;
+  //   });
+  // }
   void onSpeechResult(SpeechRecognitionResult result) {
     setState(() {
       lastWords = result.recognizedWords;
+      print('Recognized words: $lastWords');
     });
   }
 
@@ -96,16 +121,15 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 30.h),
               FadeInRight(
-                duration: Duration(microseconds: start + 2*delay),
-                
+                duration: Duration(microseconds: start + 2 * delay),
                 child: Visibility(
                   visible: generatedImageUrl == null,
                   child: Container(
                     padding: EdgeInsets.only(
                         left: 20.w, top: 15.h, bottom: 20.h, right: 20.w),
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(color: AppColors.borderColor, width: 1.w),
+                        border: Border.all(
+                            color: AppColors.borderColor, width: 1.w),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15.r),
                             bottomLeft: Radius.circular(15.r),
@@ -121,14 +145,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              
               SizedBox(height: 20.h),
-              if (generatedImageUrl !=null) ClipRRect(
-                borderRadius: BorderRadius.circular(20.r),
-                child: Image.network(generatedImageUrl!)),
-              
+              if (generatedImageUrl != null)
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(20.r),
+                    child: Image.network(generatedImageUrl!)),
               Visibility(
-                visible: generatedContent == null && generatedImageUrl ==null,
+                visible: generatedContent == null && generatedImageUrl == null,
                 child: Text('Here are a few features',
                     style: AppTypography.kFeature.copyWith(
                       color: AppColors.mainFontColor,
@@ -136,7 +159,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20.h),
               Visibility(
-                visible: generatedContent == null && generatedImageUrl ==null,
+                visible: generatedContent == null && generatedImageUrl == null,
                 child: Column(
                   children: [
                     FadeInLeft(
@@ -160,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 20.h),
                     FadeInLeft(
-                      duration: Duration(milliseconds: start + 2*delay),
+                      duration: Duration(milliseconds: start + 2 * delay),
                       child: const FeatureContainer(
                         color: AppColors.thirdSuggestionBoxColor,
                         title: 'Smart Voice Assistant',
@@ -181,6 +204,7 @@ class _HomePageState extends State<HomePage> {
                   speechToText.isNotListening) {
                 await startListening();
               } else if (speechToText.isListening) {
+                await openAIService.isArtPromptAPI(lastWords);
                 final speech = await openAIService.isArtPromptAPI(lastWords);
                 if (speech.contains('https')) {
                   generatedImageUrl = speech;
@@ -192,16 +216,16 @@ class _HomePageState extends State<HomePage> {
                   setState(() {});
                   await systemSpeak(speech);
                 }
-        
+
                 await stopListening();
               } else {
                 initSpeechToText();
               }
             },
             backgroundColor: AppColors.firstSuggestionBoxColor,
-            child: Icon(
-              speechToText.isListening? Icons.stop: Icons.mic),
+            child: Icon(speechToText.isListening ? Icons.stop : Icons.mic),
           ),
         ));
   }
 }
+
