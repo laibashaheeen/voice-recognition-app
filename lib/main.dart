@@ -18,12 +18,7 @@ Future<void> main() async {
   }
   runApp(const MyApp());
 }
-// Future<void> main() async {
-//   await dotenv.load(fileName: ".env");
-//   SystemChrome.setSystemUIOverlayStyle(AppColors.defaultOverlay);
-  
-//   runApp(const MyApp());
-// }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

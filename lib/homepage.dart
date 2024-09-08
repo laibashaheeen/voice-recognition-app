@@ -34,10 +34,6 @@ class _HomePageState extends State<HomePage> {
     initTextToSpeech();
   }
 
-  // Future<void> initSpeechToText() async {
-  //   await speechToText.initialize();
-  //   setState(() {});
-  // }
   Future<void> initSpeechToText() async {
     bool available = await speechToText.initialize(
       onStatus: (status) => print('Status: $status'),
@@ -55,10 +51,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  // Future<void> startListening() async {
-  //   await speechToText.listen(onResult: onSpeechResult);
-  //   setState(() {});
-  // }
   Future<void> startListening() async {
     if (!speechToText.isAvailable) {
       print('Speech recognition not available');
@@ -77,11 +69,7 @@ class _HomePageState extends State<HomePage> {
     await flutterTts.speak(content);
   }
 
-  // void onSpeechResult(SpeechRecognitionResult result) {
-  //   setState(() {
-  //     lastWords = result.recognizedWords;
-  //   });
-  // }
+
   void onSpeechResult(SpeechRecognitionResult result) {
     setState(() {
       lastWords = result.recognizedWords;
@@ -120,16 +108,49 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 30.h),
+              Align(
+            alignment: Alignment.topRight,
+                child: FadeInLeft(
+                  duration: Duration(microseconds: start + 2 * delay),
+                  child: Visibility(
+                   visible: lastWords.isNotEmpty || speechToText.isListening,
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          left: 20.w, top: 15.h, bottom: 20.h, right: 20.w),
+                      decoration: BoxDecoration(
+                         
+                          border: Border.all(
+                              color: AppColors.firstSuggestionBoxColor, width: 1.w),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15.r),
+                              bottomLeft: Radius.circular(15.r),
+                              bottomRight: Radius.circular(15.r))),
+                      child: Text(
+                          lastWords,
+                          style: AppTypography.kWelcome.copyWith(
+                            color: AppColors.mainFontColor,
+                            fontSize: 18,
+                          )),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              if (!speechToText.isListening) ...[
               FadeInRight(
                 duration: Duration(microseconds: start + 2 * delay),
                 child: Visibility(
                   visible: generatedImageUrl == null,
                   child: Container(
+                    
                     padding: EdgeInsets.only(
                         left: 20.w, top: 15.h, bottom: 20.h, right: 20.w),
                     decoration: BoxDecoration(
+                       
                         border: Border.all(
-                            color: AppColors.borderColor, width: 1.w),
+                            color: AppColors.thirdSuggestionBoxColor, width: 1.w),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15.r),
                             bottomLeft: Radius.circular(15.r),
@@ -195,6 +216,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ],
+            ]
           ),
         ),
         floatingActionButton: FadeInUp(
