@@ -65,10 +65,18 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  // Future<void> systemSpeak(String content) async {
+  //   await flutterTts.speak(content);
+  // }
   Future<void> systemSpeak(String content) async {
-    await flutterTts.speak(content);
+    print('systemSpeak: Attempting to speak: "$content"');
+    try {
+      await flutterTts.speak(content);
+      print('systemSpeak: Speech request sent successfully');
+    } catch (e) {
+      print('systemSpeak: Error occurred while trying to speak: $e');
+    }
   }
-
 
   void onSpeechResult(SpeechRecognitionResult result) {
     setState(() {
@@ -95,62 +103,59 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
           padding: EdgeInsets.only(
               left: 35.0.w, right: 35.w, top: 10.h, bottom: 20.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: ZoomIn(
-                  duration: Duration(milliseconds: start),
-                  child: CircleAvatar(
-                      radius: 55.r,
-                      backgroundColor: AppColors.assistantCircleColor,
-                      backgroundImage: AssetImage(AppAssets.kProfile)),
-                ),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Center(
+              child: ZoomIn(
+                duration: Duration(milliseconds: start),
+                child: CircleAvatar(
+                    radius: 55.r,
+                    backgroundColor: AppColors.assistantCircleColor,
+                    backgroundImage: AssetImage(AppAssets.kProfile)),
               ),
-              SizedBox(height: 30.h),
-              Align(
-            alignment: Alignment.topRight,
-                child: FadeInLeft(
-                  duration: Duration(microseconds: start + 2 * delay),
-                  child: Visibility(
-                   visible: lastWords.isNotEmpty || speechToText.isListening,
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          left: 20.w, top: 15.h, bottom: 20.h, right: 20.w),
-                      decoration: BoxDecoration(
-                         
-                          border: Border.all(
-                              color: AppColors.firstSuggestionBoxColor, width: 1.w),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15.r),
-                              bottomLeft: Radius.circular(15.r),
-                              bottomRight: Radius.circular(15.r))),
-                      child: Text(
-                          lastWords,
-                          style: AppTypography.kWelcome.copyWith(
-                            color: AppColors.mainFontColor,
-                            fontSize: 18,
-                          )),
-                    ),
+            ),
+            SizedBox(height: 20.h),
+            Align(
+              alignment: Alignment.topRight,
+              child: FadeInLeft(
+                duration: Duration(microseconds: start + 2 * delay),
+                child: Visibility(
+                  visible: lastWords.isNotEmpty || speechToText.isListening,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: 20.w, top: 15.h, bottom: 20.h, right: 20.w),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: AppColors.firstSuggestionBoxColor,
+                            width: 1.w),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15.r),
+                            bottomLeft: Radius.circular(15.r),
+                            bottomRight: Radius.circular(15.r))),
+                    child: Text(lastWords,
+                        style: AppTypography.kWelcome.copyWith(
+                          color: AppColors.mainFontColor,
+                          fontSize: 18,
+                        )),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20.h,
-              ),
-              if (!speechToText.isListening) ...[
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            if (!speechToText.isListening) ...[
               FadeInRight(
                 duration: Duration(microseconds: start + 2 * delay),
                 child: Visibility(
                   visible: generatedImageUrl == null,
                   child: Container(
-                    
                     padding: EdgeInsets.only(
                         left: 20.w, top: 15.h, bottom: 20.h, right: 20.w),
                     decoration: BoxDecoration(
-                       
                         border: Border.all(
-                            color: AppColors.thirdSuggestionBoxColor, width: 1.w),
+                            color: AppColors.thirdSuggestionBoxColor,
+                            width: 1.w),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15.r),
                             bottomLeft: Radius.circular(15.r),
@@ -167,10 +172,27 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 20.h),
+              // if (generatedImageUrl != null)
+              //   ClipRRect(
+              //       borderRadius: BorderRadius.circular(20.r),
+              //       child: Image.network(generatedImageUrl!)),
               if (generatedImageUrl != null)
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(20.r),
-                    child: Image.network(generatedImageUrl!)),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      generatedImageUrl!,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Text('Error loading image');
+                      },
+                    ),
+                  ),
+                ),
               Visibility(
                 visible: generatedContent == null && generatedImageUrl == null,
                 child: Text('Here are a few features',
@@ -216,8 +238,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ],
-            ]
-          ),
+          ]),
         ),
         floatingActionButton: FadeInUp(
           child: FloatingActionButton(
@@ -250,4 +271,3 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-
