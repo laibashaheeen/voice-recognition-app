@@ -1,6 +1,6 @@
 
-import 'package:ai_app/data/app_colors.dart';
-import 'package:ai_app/data/typography.dart';
+import 'package:Allen/data/app_colors.dart';
+import 'package:Allen/data/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

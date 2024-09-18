@@ -133,7 +133,7 @@ class OpenAIService {
           'Authorization': 'Bearer ${dotenv.env['OPENAI_API_KEY']}',
         },
         body: jsonEncode({
-          'model': 'dall-e-3', // Specify the DALL-E 3 model
+          "model": dotenv.env['DALLE_MODEL_NAME'],
           'prompt': prompt,
           'n': 1,
           // 'size': "1024x1024",  // You can adjust this based on your needs and plan

@@ -1,5 +1,5 @@
-import 'package:ai_app/data/app_colors.dart';
-import 'package:ai_app/homepage.dart';
+import 'package:Allen/data/app_colors.dart';
+import 'package:Allen/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

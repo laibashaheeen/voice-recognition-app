@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:ai_app/components/feature_container.dart';
-import 'package:ai_app/data/app_assets.dart';
-import 'package:ai_app/data/app_colors.dart';
-import 'package:ai_app/data/typography.dart';
-import 'package:ai_app/openai_service.dart';
+import 'package:Allen/components/feature_container.dart';
+import 'package:Allen/data/app_assets.dart';
+import 'package:Allen/data/app_colors.dart';
+import 'package:Allen/data/typography.dart';
+import 'package:Allen/openai_service.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
       ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                   content: Text(
-                                    message,
+                                    "OOPS, try again",
                                     style: AppTypography.kDescription.copyWith(
                                         fontSize: 14.sp,
                                         color: AppColors.mainFontColor),
