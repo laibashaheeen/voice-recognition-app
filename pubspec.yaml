@@ -43,6 +43,13 @@ dependencies:
   animate_do: ^3.0.2
   flutter_dotenv: ^5.1.0
   flutter_launcher_icons: ^0.13.1
+  loading_indicator: ^3.1.1
+  permission_handler: ^11.3.1
+  path_provider: ^2.1.4
+  image_gallery_saver: ^2.0.3
+  dio: ^5.7.0
+  fl_downloader: ^2.0.2
+  flutter_file_dialog: ^3.0.2
 
 flutter_launcher_icons:
   android: true
