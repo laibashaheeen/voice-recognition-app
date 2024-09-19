@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:Allen/components/feature_container.dart';
+import 'package:Allen/Views/HomePage/components/feature_container.dart';
 import 'package:Allen/data/app_assets.dart';
 import 'package:Allen/data/app_colors.dart';
 import 'package:Allen/data/typography.dart';
@@ -268,7 +268,7 @@ class _HomePageState extends State<HomePage> {
           ),
           if (!isListening) ...[
             // Greeting and Answer Box
-
+      
             Column(
               children: [
                 FadeInRight(
@@ -330,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                       if (!isSpeaking) {
                         await flutterTts.speak(generatedContent!);
                         
-
+      
                         setState(() {
                           isSpeaking = true;
                         });
@@ -371,7 +371,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             
-
+      
             
             //Generated image box
             if (generatedImageUrl != null)

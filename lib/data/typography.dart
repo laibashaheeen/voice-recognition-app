@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTypography {
 
+  static TextStyle kOnBoarding = TextStyle(
+   fontFamily: 'Cera Pro',fontSize: 30.sp
+  );
   static TextStyle kWelcome = TextStyle(
    fontFamily: 'Cera Pro',fontSize: 24.sp
   );

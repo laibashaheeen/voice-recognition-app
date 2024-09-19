@@ -1,13 +1,14 @@
+import 'package:Allen/Views/OnBoarding/onboarding.dart';
 import 'package:Allen/data/app_colors.dart';
-import 'package:Allen/homepage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   try {
     print('Loading .env file...');
     await dotenv.load(fileName: "lib/.env");
@@ -18,7 +19,6 @@ Future<void> main() async {
   }
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             )
           ),
           scrollBehavior: const ScrollBehavior().copyWith(overscroll: false),
-          home: const HomePage(),
+          home: const OnBoarding(),
         );
       },
     );
