@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:Allen/Views/HomePage/components/feature_container.dart';
-import 'package:Allen/data/app_assets.dart';
-import 'package:Allen/data/app_colors.dart';
-import 'package:Allen/data/typography.dart';
-import 'package:Allen/openai_service.dart';
+import 'package:ai_app/Views/HomePage/components/feature_container.dart';
+import 'package:ai_app/data/app_assets.dart';
+import 'package:ai_app/data/app_colors.dart';
+import 'package:ai_app/data/typography.dart';
+import 'package:ai_app/openai_service.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -226,7 +226,8 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         padding:
             EdgeInsets.only(left: 35.0.w, right: 35.w, top: 10.h, bottom: 20.h),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, 
+        children: [
           Center(
             child: ZoomIn(
               duration: Duration(milliseconds: start),
@@ -271,6 +272,7 @@ class _HomePageState extends State<HomePage> {
       
             Column(
               children: [
+                
                 FadeInRight(
                   duration: Duration(microseconds: start + 2 * delay),
                   child: Visibility(

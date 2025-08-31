@@ -1,11 +1,12 @@
-import 'package:Allen/Views/HomePage/homepage.dart';
-import 'package:Allen/Views/auth/components/auth_field.dart';
-import 'package:Allen/Views/auth/components/primary_button.dart';
-import 'package:Allen/Views/auth/components/social_links.dart';
-import 'package:Allen/Views/auth/signin_view.dart';
-import 'package:Allen/data/app_assets.dart';
-import 'package:Allen/data/app_colors.dart';
-import 'package:Allen/data/typography.dart';
+import 'package:ai_app/Views/HomePage/homepage.dart';
+import 'package:ai_app/Views/auth/auth_service.dart';
+import 'package:ai_app/Views/auth/components/auth_field.dart';
+import 'package:ai_app/Views/auth/components/primary_button.dart';
+import 'package:ai_app/Views/auth/components/social_links.dart';
+import 'package:ai_app/Views/auth/signin_view.dart';
+import 'package:ai_app/data/app_assets.dart';
+import 'package:ai_app/data/app_colors.dart';
+import 'package:ai_app/data/typography.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,11 +20,13 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  final _auth = AuthService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -98,7 +101,7 @@ class _SignUpViewState extends State<SignUpView> {
                   ),
                   SizedBox(height: 30.h),
                   PrimaryButton(
-                      onTap: () {
+                      onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           if (_passwordController.text !=
                               _confirmPasswordController.text) {
@@ -114,11 +117,18 @@ class _SignUpViewState extends State<SignUpView> {
                             );
                           } else {
                             // Passwords match, proceed with account creation
-                            Navigator.push(
+                            final user = await _auth.createUserWithEmailAndPassword(_emailController.text, _passwordController.text);
+                            if(user!= null) {
+                              print ("User created successfully");
+                              Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const HomePage()),
                             );
+                            } else {
+                              print("Error creating user");
+                            }
+                            
                           }
                         }
                       },

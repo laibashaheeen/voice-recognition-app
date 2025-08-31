@@ -1,9 +1,9 @@
-import 'package:Allen/Views/OnBoarding/components/outlined_button.dart';
-import 'package:Allen/Views/auth/signin_view.dart';
-import 'package:Allen/Views/auth/signup_view.dart';
-import 'package:Allen/data/app_assets.dart';
-import 'package:Allen/data/app_colors.dart';
-import 'package:Allen/data/typography.dart';
+import 'package:ai_app/Views/OnBoarding/components/outlined_button.dart';
+import 'package:ai_app/Views/auth/signin_view.dart';
+import 'package:ai_app/Views/auth/signup_view.dart';
+import 'package:ai_app/data/app_assets.dart';
+import 'package:ai_app/data/app_colors.dart';
+import 'package:ai_app/data/typography.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

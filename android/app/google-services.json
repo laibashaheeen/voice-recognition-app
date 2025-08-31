@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "725537660419",
+    "project_id": "voicerecognition-31a54",
+    "storage_bucket": "voicerecognition-31a54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725537660419:android:1a40f7c2dc1051837c7836",
+        "android_client_info": {
+          "package_name": "com.example.ai_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0IyWXotLHrkSOCufOZV4TPgATgq2VJ1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,19 +1,18 @@
 // import 'dart:convert';
 
-import 'package:Allen/Views/HomePage/homepage.dart';
-import 'package:Allen/Views/auth/components/auth_field.dart';
-import 'package:Allen/Views/auth/components/primary_button.dart';
-import 'package:Allen/Views/auth/components/social_links.dart';
-import 'package:Allen/Views/auth/forget_view.dart';
-import 'package:Allen/Views/auth/signup_view.dart';
-import 'package:Allen/data/app_assets.dart';
-import 'package:Allen/data/app_colors.dart';
-import 'package:Allen/data/typography.dart';
+import 'package:ai_app/Views/HomePage/homepage.dart';
+import 'package:ai_app/Views/auth/components/auth_field.dart';
+import 'package:ai_app/Views/auth/components/primary_button.dart';
+import 'package:ai_app/Views/auth/components/social_links.dart';
+import 'package:ai_app/Views/auth/forget_view.dart';
+import 'package:ai_app/Views/auth/signup_view.dart';
+import 'package:ai_app/data/app_assets.dart';
+import 'package:ai_app/data/app_colors.dart';
+import 'package:ai_app/data/typography.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninView extends StatefulWidget {
   const SigninView({super.key});
@@ -26,16 +25,12 @@ class _SigninViewState extends State<SigninView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  // late SharedPreferences prefs;
   @override
   void initState() {
     super.initState();
-    // initSharedPref();
   }
 
-  // void initSharedPref() async {
-  //   prefs = await SharedPreferences.getInstance();
-  // }
+  
   @override
   void dispose() {
     super.dispose();
